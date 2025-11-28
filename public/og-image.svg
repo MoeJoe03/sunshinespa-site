@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#FDE68A"/>
+      <stop offset="1" stop-color="#FBCFE8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <g transform="translate(60,120)">
+    <text x="0" y="0" font-family="Inter, Arial, sans-serif" font-size="48" fill="#111" font-weight="700">Sunshine Thai Massage & Spa</text>
+    <text x="0" y="70" font-family="Inter, Arial, sans-serif" font-size="28" fill="#111">Luxury Wellness in Radiant Harmony</text>
+  </g>
+</svg>
