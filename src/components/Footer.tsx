@@ -62,7 +62,7 @@ const Footer = () => {
               9:00 AM - 8:00 PM
             </p>
             <div className="flex gap-3 sm:gap-4">
-              <a href="#" className="w-9 h-9 sm:w-10 sm:h-10 bg-primary/10 hover:bg-primary hover:text-primary-foreground rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110">
+              <a href="https://www.instagram.com/headoffice_bylutfeyah/" target="_blank" rel="noopener noreferrer" className="w-9 h-9 sm:w-10 sm:h-10 bg-primary/10 hover:bg-primary hover:text-primary-foreground rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110">
                 <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
               </a>
               <a href="http://wa.link/vmzez1" target="_blank" rel="noopener noreferrer" className="w-9 h-9 sm:w-10 sm:h-10 bg-primary/10 hover:bg-primary hover:text-primary-foreground rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110">

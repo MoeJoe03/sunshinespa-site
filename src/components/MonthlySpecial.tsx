@@ -1,10 +1,43 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Sparkles, Clock, Calendar } from "lucide-react";
+import { Sparkles, Calendar } from "lucide-react";
 import lotusAccent from "@/assets/lotus-accent.png";
 import couplesPackage from "@/assets/couples-package.jpg";
 
+// Set `enabled` to true and update the block below when the next special is ready to go live.
+const monthlySpecialConfig = {
+  enabled: false,
+  title: "This Month's Special",
+  tagline: "Limited Time Offer",
+  bookingUrl: "http://wa.link/vmzez1",
+  highlightPackages: [
+    {
+      description: "Aroma therapy full body 60 min",
+      currentPrice: "R225pp",
+      oldPrice: "R250"
+    },
+    {
+      description: "Thai hot oil full body 60 min",
+      currentPrice: "R270pp",
+      oldPrice: "R300"
+    },
+    {
+      description: "Thai hot oil full body 90 min",
+      currentPrice: "R360pp",
+      oldPrice: "R400"
+    }
+  ],
+  validUntil: "Valid till December 31st",
+  description: "Share the experience of wellness with someone special. Special couples pricing on our most popular treatments."
+};
+
 const MonthlySpecial = () => {
+  if (!monthlySpecialConfig.enabled) {
+    return null;
+  }
+
+  const { title, tagline, description, highlightPackages, validUntil, bookingUrl } = monthlySpecialConfig;
+
   return (
     <section className="py-16 sm:py-20 md:py-24 bg-gradient-lotus relative overflow-hidden">
       {/* Decorative lotus accent */}
@@ -16,11 +49,11 @@ const MonthlySpecial = () => {
         <div className="text-center mb-8 sm:mb-12 animate-fade-in-up">
           <div className="inline-flex items-center gap-2 mb-4">
             <Sparkles className="w-6 h-6 text-primary animate-glow-pulse" />
-            <span className="text-primary font-semibold uppercase tracking-wider text-sm">Limited Time Offer</span>
+            <span className="text-primary font-semibold uppercase tracking-wider text-sm">{tagline}</span>
             <Sparkles className="w-6 h-6 text-primary animate-glow-pulse" />
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-foreground font-playfair">
-            This Month's Special
+            {title}
           </h2>
           <div className="w-20 sm:w-24 h-1 bg-gradient-sunrise mx-auto rounded-full" />
         </div>
@@ -54,46 +87,26 @@ const MonthlySpecial = () => {
                   </CardHeader>
 
                   <CardContent className="p-0 space-y-4">
-                    <p className="text-foreground/80 leading-relaxed">
-                      Share the experience of wellness with someone special. Special couples pricing on our most popular treatments.
-                    </p>
+                    <p className="text-foreground/80 leading-relaxed">{description}</p>
 
                     <div className="space-y-3">
-                      <div className="flex items-start gap-2">
-                        <Sparkles className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                        <div className="flex-1">
-                          <span className="text-sm text-foreground/70">Aroma therapy full body 60 min</span>
-                          <div className="flex items-baseline gap-2 mt-1">
-                            <span className="text-lg font-bold text-primary">R225pp</span>
-                            <span className="text-sm text-muted-foreground line-through">R250</span>
+                      {highlightPackages.map((pack, idx) => (
+                        <div key={idx} className="flex items-start gap-2">
+                          <Sparkles className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                          <div className="flex-1">
+                            <span className="text-sm text-foreground/70">{pack.description}</span>
+                            <div className="flex items-baseline gap-2 mt-1">
+                              <span className="text-lg font-bold text-primary">{pack.currentPrice}</span>
+                              <span className="text-sm text-muted-foreground line-through">{pack.oldPrice}</span>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <Sparkles className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                        <div className="flex-1">
-                          <span className="text-sm text-foreground/70">Thai hot oil full body 60 min</span>
-                          <div className="flex items-baseline gap-2 mt-1">
-                            <span className="text-lg font-bold text-primary">R270pp</span>
-                            <span className="text-sm text-muted-foreground line-through">R300</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <Sparkles className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                        <div className="flex-1">
-                          <span className="text-sm text-foreground/70">Thai hot oil full body 90 min</span>
-                          <div className="flex items-baseline gap-2 mt-1">
-                            <span className="text-lg font-bold text-primary">R360pp</span>
-                            <span className="text-sm text-muted-foreground line-through">R400</span>
-                          </div>
-                        </div>
-                      </div>
+                      ))}
                     </div>
 
                     <div className="flex items-center gap-2 text-sm text-muted-foreground bg-muted/50 p-3 rounded-lg">
                       <Calendar className="w-4 h-4" />
-                      <span>Valid till December 31st</span>
+                      <span>{validUntil}</span>
                     </div>
                   </CardContent>
                 </div>
@@ -104,7 +117,7 @@ const MonthlySpecial = () => {
                     className="w-full bg-gradient-sunrise hover:opacity-90 transition-opacity shadow-elegant text-base font-semibold"
                     asChild
                   >
-                    <a href="http://wa.link/vmzez1" target="_blank" rel="noopener noreferrer">
+                    <a href={bookingUrl} target="_blank" rel="noopener noreferrer">
                       Book This Special
                     </a>
                   </Button>

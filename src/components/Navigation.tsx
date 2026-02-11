@@ -1,12 +1,22 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Flower2, Menu, X } from "lucide-react";
+import { useState, useEffect, type MouseEvent } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Flower2, Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const location = useLocation();
+  const navigate = useNavigate();
+
+  const resolveNavHref = (href: string) => (href.startsWith("#") ? `/${href}` : href);
+  const navigateToHash = (href: string, shouldCloseMenu = false, event?: MouseEvent<HTMLAnchorElement>) => {
+    event?.preventDefault();
+    const resolved = resolveNavHref(href);
+    navigate(resolved);
+    if (shouldCloseMenu) {
+      setIsMobileMenuOpen(false);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,8 +65,9 @@ const Navigation = () => {
                   </Link>
                 ) : (
                   <a
-                    href={link.href}
+                    href={resolveNavHref(link.href)}
                     className="text-foreground/95 hover:text-primary transition-colors duration-300 font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+                    onClick={(e) => navigateToHash(link.href, false, e)}
                   >
                     {link.name}
                   </a>
@@ -110,19 +121,13 @@ const Navigation = () => {
                           {link.name}
                         </Link>
                       ) : (
-                        <a
-                          href={link.href}
-                          className="text-lg text-foreground/95 hover:text-primary transition-colors duration-300 font-medium block"
-                          onClick={(e) => {
-                            setIsMobileMenuOpen(false);
-                            if (location.pathname !== '/') {
-                              e.preventDefault();
-                              window.location.href = '/' + link.href;
-                            }
-                          }}
-                        >
-                          {link.name}
-                        </a>
+                  <a
+                    href={resolveNavHref(link.href)}
+                    className="text-lg text-foreground/95 hover:text-primary transition-colors duration-300 font-medium block"
+                    onClick={(e) => navigateToHash(link.href, true, e)}
+                  >
+                    {link.name}
+                  </a>
                       )}
                     </div>
                   ))}
